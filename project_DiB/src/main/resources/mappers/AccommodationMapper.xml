@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.project_dib.mapper.AccommodationMapper">
+    
+    <insert id="insertAccommodation" useGeneratedKeys="true" keyProperty="ano">
+        insert into accommodation(acc_name, acc_exp, acc_loc, acc_phone)
+        values (#{acc_name}, #{acc_exp}, #{acc_loc}, #{acc_phone})
+    </insert>
+
+    <select id="findAll" resultType="org.zerock.project_dib.accommodation.domain.AccommodationVO">
+        select * from accommodation
+    </select>
+
+    <select id="search" parameterType="org.zerock.project_dib.accommodation.dto.PageRequestDTO" resultType="org.zerock.project_dib.accommodation.domain.AccommodationVO">
+        SELECT * FROM accommodation
+        ORDER BY ano DESC
+            LIMIT #{pageRequestDTO.size} OFFSET #{pageRequestDTO.skip}
+    </select>
+
+    <select id="getTotalCount" parameterType="org.zerock.project_dib.accommodation.dto.PageRequestDTO" resultType="int">
+        SELECT COUNT(*) FROM accommodation
+    </select>
+
+    <select id="selectOne" resultType="org.zerock.project_dib.accommodation.domain.AccommodationVO">
+        select * from accommodation where ano = #{ano}
+    </select>
+
+    <update id="update">
+        update accommodation set acc_name = #{acc_name}, acc_exp = #{acc_exp}, acc_loc = #{acc_loc}, acc_phone = #{acc_phone}, moddate = current_timestamp()
+        where ano = #{ano}
+    </update>
+
+    <delete id="delete">
+        delete from accommodation where ano = #{ano}
+    </delete>
+
+    <insert id="insertFile" >
+        insert into accommodation_img (uuid, file_name, ano, ord)
+        values (#{uuid}, #{file_name}, #{ano}, #{ord})
+    </insert>
+
+    <select id="findAllFilesByAno" resultType="org.zerock.project_dib.accommodation.domain.AccommodationImgVO">
+        select * from accommodation_img where ano = #{ano}
+    </select>
+
+    <select id="findFileByFirstOrd" resultType="org.zerock.project_dib.accommodation.domain.AccommodationImgVO">
+        select * from accommodation_img where ord = 0
+    </select>
+
+    <select id="findFileByUuid" resultType="org.zerock.project_dib.accommodation.domain.AccommodationImgVO">
+        select * from accommodation_img where uuid = #{uuid}
+    </select>
+
+    <select id="findAllFiles" resultType="org.zerock.project_dib.accommodation.domain.AccommodationImgVO">
+        select * from accommodation_img
+    </select>
+
+    <delete id="deleteFile">
+        delete from accommodation_img where uuid = #{uuid}
+    </delete>
+
+    <select id="findOrdByAno" resultType="org.zerock.project_dib.accommodation.domain.AccommodationImgVO">
+        select * from accommodation_img where ano = #{ano} order by ord DESC LIMIT 1
+    </select>
+
+
+</mapper>

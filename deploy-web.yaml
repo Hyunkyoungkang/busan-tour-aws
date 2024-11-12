@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webmain
+  template:
+    metadata:
+      labels:
+        app: webmain
+    spec:
+      containers:
+        - image: hyunkyoungkang/busan-tour-kube:latest
+          name: web-container
+          ports:
+            - containerPort: 9000
+--- # 서비스
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  selector:
+    app: webmain
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 9000
+    targetPort: 9000
+    nodePort: 30080
+
