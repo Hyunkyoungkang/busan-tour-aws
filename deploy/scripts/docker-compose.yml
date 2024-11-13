@@ -2,6 +2,6 @@ version: '3.9'
 services:
   spring-petclinic:
     image: hyunkyoungkang/busan-tour-aws:latest
-    container_name: busan-tour
+    container_name: busan-tour-aws
     ports:
       - "80:8080"
