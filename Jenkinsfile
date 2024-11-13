@@ -115,7 +115,7 @@ pipeline {
                         --application-name team03-deploy \
                         --deployment-config-name CodeDeployDefault.OneAtATime \
                         --deployment-group-name team03-deploy-group \
-                        --s3-location bucket=team03-bucket,bundleType=zip,key=deploy.zip,eTag=ec52d48bb9480cfaa4a0d91e4b139957
+                        --s3-location bucket=team03-bucket,bundleType=zip,key=deploy.zip
                    """
                  }
             }
